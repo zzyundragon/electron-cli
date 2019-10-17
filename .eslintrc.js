@@ -9,6 +9,7 @@ module.exports = {
   ],
   rules: {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    "quotes": [1, "single"], // 单引号，非单警告
     // 不检测语句末尾的分号
     'semi': ['off', 'always'],
     // 强制缩进为2个空格

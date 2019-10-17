@@ -7,8 +7,9 @@ function resolve(dir) {
 module.exports = {
 	publicPath: './',
 	devServer: {
-		host: '0.0.0.0',
-		port: 8080
+		host: '127.0.0.1',
+		port: 8080,
+		proxy: 'http://127.0.0.1/4040'
 	},
 	chainWebpack: config => {
 		config.resolve.alias

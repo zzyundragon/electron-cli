@@ -3,7 +3,8 @@
 import {
   app,
   protocol,
-  BrowserWindow
+  BrowserWindow,
+  systemPreferences
 } from 'electron'
 import {
   createProtocol,
@@ -24,7 +25,12 @@ protocol.registerSchemesAsPrivileged([{
     standard: true
   }
 }])
-
+systemPreferences.subscribeNotification(
+  'AppleInterfaceThemeChangedNotification',
+  function theThemeHasChanged() {
+    console.log(systemPreferences.isDarkMode())
+  }
+)
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
