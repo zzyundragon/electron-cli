@@ -1,9 +1,9 @@
 import axios from './axios'
-// import { host } from '@/config/index'
+import qs from 'qs'
+import { host } from '@/config/index'
 export default async (url = '', data = {}, method = 'get', headers = {}) => {
   method = method.toUpperCase() || 'GET'
-  url = url || ''
-  data = { ...data }
+  url = host + url || ''
   headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
@@ -21,6 +21,11 @@ export default async (url = '', data = {}, method = 'get', headers = {}) => {
       url = url + '?' + dataStr
     }
   }
+  if (method === 'POST') {
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    data = qs.stringify(data)
+  }
+
   return new Promise((resolve, reject) => {
     axios({
       method: method,

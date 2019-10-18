@@ -1,27 +1,46 @@
 <template>
-  <div class='home'>
-    <img alt='Vue logo' src='../assets/logo.png' />
-    <HelloWorld msg='Welcome to Your Vue.js App' />
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <div>{{title}}</div>
+    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import { mapState, mapActions } from 'vuex'
+import md5 from 'js-md5'
 import HelloWorld from '@/components/HelloWorld.vue'
-import { getTitle } from '@/service/index'
+import { getPodiumList, loginFunc } from '@/service/index'
 
 export default {
   name: 'home',
+  data() {
+    return {
+      userInfo: {},
+      data: {}
+    }
+  },
   components: {
     HelloWorld
   },
+  computed: {
+    ...mapState(['title'])
+  },
   async created() {
     try {
-      let data = await getTitle({username: 'admin1', password: 'abc123'})
-      console.log('data', data)
+      let res = await loginFunc({
+        userName: 'superAdmin',
+        password: md5('administrator')
+      })
+      sessionStorage.setItem('userInfo', JSON.stringify(res.data.data))
+      await this.insertUserInfo()
+      this.data = await getPodiumList()
     } catch (error) {
       console.log('error =', error)
     }
+  },
+  methods: {
+    ...mapActions(['getUserInfo', 'insertUserInfo'])
   }
 }
 </script>

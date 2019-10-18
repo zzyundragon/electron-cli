@@ -4,9 +4,8 @@
  * imgBaseUrl: 图片所在域名地址
  */
 
-let host = 'http://127.0.0.1/4040'
+let host = 'https://crm-tst.service.leaplearner.com/'
 let imgBaseUrl = ''
-
 if (process.env.NODE_ENV === 'development') {
   imgBaseUrl = ''
 } else if (process.env.NODE_ENV === 'production') {

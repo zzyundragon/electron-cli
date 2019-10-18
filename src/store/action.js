@@ -1,11 +1,11 @@
-import { changeTitle } from './mutation-types.js'
+import { changeTitle, insertUserInfo } from './mutation-types.js'
 
 export default {
-  async getUserInfo({
+  async insertUserInfo({
     commit,
     state
   }) {
-    let res = 'await getUser()'
-    commit(changeTitle, res)
+    commit(insertUserInfo, sessionStorage.getItem('userInfo'))
+    commit(changeTitle, 'res.data')
   }
 }

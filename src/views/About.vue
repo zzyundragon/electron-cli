@@ -1,5 +1,20 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <div id="about">{{ userInfo }}</div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+export default {
+  name: 'about',
+  data() {
+    return {
+
+    }
+  },
+  computed: {
+    ...mapState(['userInfo'])
+  }
+}
+</script>
+
+<style lang='stylus' scoped></style>

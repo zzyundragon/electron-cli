@@ -7,9 +7,9 @@ function resolve(dir) {
 module.exports = {
 	publicPath: './',
 	devServer: {
-		host: '127.0.0.1',
-		port: 8080,
-		proxy: 'http://127.0.0.1/4040'
+		// host: 'https://crm-tst.service.leaplearner.com/',
+		// port: 8080,
+		proxy: 'https://crm-tst.service.leaplearner.com/'
 	},
 	chainWebpack: config => {
 		config.resolve.alias
