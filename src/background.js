@@ -16,7 +16,6 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
-
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{
   scheme: 'app',
@@ -34,8 +33,10 @@ systemPreferences.subscribeNotification(
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1360,
+    height: 768,
+    minWidth: 800,
+    minHeight: 600,
     webPreferences: {
       webSecurity: false,
       nodeIntegration: true
