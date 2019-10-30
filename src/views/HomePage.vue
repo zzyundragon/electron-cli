@@ -43,7 +43,7 @@ import Astronaut from '@/assets/images/homePage/astronaut.png'
 import Banner from '@/assets/images/homePage/banner.png'
 import Setting from '@/assets/images/homePage/setting.png'
 import { getPodiumList, loginFunc } from '@/service/index'
-// import AgoraRtcEngine from 'agora-electron-sdk'
+import AgoraRtcEngine from 'agora-electron-sdk'
 
 export default {
   name: 'HomePage',
@@ -66,8 +66,8 @@ export default {
     ...mapState(['title'])
   },
   async created() {
-    // this.rtcEngine = new AgoraRtcEngine()
-    // console.log('rtc =', this.rtcEngine)
+    this.rtcEngine = new AgoraRtcEngine()
+    console.log('rtc =', this.rtcEngine)
     try {
       let res = await loginFunc({
         userName: 'superAdmin',
