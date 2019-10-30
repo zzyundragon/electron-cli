@@ -24,12 +24,13 @@ protocol.registerSchemesAsPrivileged([{
     standard: true
   }
 }])
-systemPreferences.subscribeNotification(
-  'AppleInterfaceThemeChangedNotification',
-  function theThemeHasChanged() {
-    console.log(systemPreferences.isDarkMode())
-  }
-)
+// mac 黑暗模式
+// systemPreferences.subscribeNotification(
+//   'AppleInterfaceThemeChangedNotification',
+//   function theThemeHasChanged() {
+//     console.log(systemPreferences.isDarkMode())
+//   }
+// )
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
@@ -45,6 +46,7 @@ function createWindow() {
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
+    console.log('WEBPACK_DEV_SERVER_URL =', process.env.WEBPACK_DEV_SERVER_URL, process.env.IS_TEST)
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {

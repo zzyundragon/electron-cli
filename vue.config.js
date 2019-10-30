@@ -9,9 +9,9 @@ function addStyleResource(rule) {
     .loader('style-resources-loader')
     .options({
       patterns: [
-        path.resolve(__dirname, 'src/styles/mixin.styl'),
-        path.resolve(__dirname, 'src/styles/base.styl'),
-        path.resolve(__dirname, 'src/styles/common.styl')
+        path.resolve(__dirname, './src/styles/mixin.styl'),
+        path.resolve(__dirname, './src/styles/base.styl'),
+        path.resolve(__dirname, './src/styles/common.styl')
       ]
     })
 }
@@ -20,40 +20,78 @@ module.exports = {
   devServer: {
     proxy: 'https://crm-tst.service.leaplearner.com/'
   },
-  configureWebpack: config => {
-    if (process.env.NODE_ENV === 'production') {
-      // 为生产环境修改配置...
-      let optimization = {
-        runtimeChunk: 'single',
-        splitChunks: {
-          chunks: 'all',
-          maxInitialRequests: Infinity,
-          minSize: 20000,
-          cacheGroups: {
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name(module) {
-                const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-                return `npm.${packageName.replace('@', '')}`
-              }
-            }
-          }
-        },
-        minimizer: [new UglifyPlugin({
-          uglifyOptions: {
-            compress: {
-              drop_console: true, // console
-              drop_debugger: false,
-              pure_funcs: ['console.log'] // 移除console
-            }
-          }
-        })]
-      }
-      Object.assign(config, {
-        optimization
-      })
-    } else {
-      // 为开发环境修改配置...
+  // configureWebpack: config => {
+  //   if (process.env.NODE_ENV === 'production') {
+  //     // 为生产环境修改配置...
+  //     let optimization = {
+  //       runtimeChunk: 'single',
+  //       splitChunks: {
+  //         chunks: 'all',
+  //         maxInitialRequests: Infinity,
+  //         minSize: 20000,
+  //         cacheGroups: {
+  //           vendor: {
+  //             test: /[\\/]node_modules[\\/]/,
+  //             name(module) {
+  //               const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+  //               return `npm.${packageName.replace('@', '')}`
+  //             }
+  //           }
+  //         }
+  //       },
+  //       minimizer: [new UglifyPlugin({
+  //         uglifyOptions: {
+  //           compress: {
+  //             drop_console: true, // console
+  //             drop_debugger: false,
+  //             pure_funcs: ['console.log'] // 移除console
+  //           }
+  //         }
+  //       })]
+  //     }
+  //     Object.assign(config, {
+  //       optimization
+  //     })
+  //   } else {
+  //     // 为开发环境修改配置...
+  //     let optimization = {
+  //       runtimeChunk: 'single',
+  //       externals: {
+  //         'agora-electron-sdk': 'commonjs2 agora-electron-sdk'
+  //       },
+  //       splitChunks: {
+  //         chunks: 'all',
+  //         maxInitialRequests: Infinity,
+  //         minSize: 20000,
+  //         cacheGroups: {
+  //           vendor: {
+  //             test: /[\\/]node_modules[\\/]/,
+  //             name(module) {
+  //               const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+  //               return `npm.${packageName.replace('@', '')}`
+  //             }
+  //           }
+  //         }
+  //       },
+  //       minimizer: [new UglifyPlugin({
+  //         uglifyOptions: {
+  //           compress: {
+  //             drop_console: true, // console
+  //             drop_debugger: false,
+  //             pure_funcs: ['console.log'] // 移除console
+  //           }
+  //         }
+  //       })]
+  //     }
+  //     Object.assign(config, {
+  //       optimization
+  //     })
+  //   }
+  // },
+  configureWebpack: {
+    // runtimeChunk: 'single',
+    externals: {
+      'agora-electron-sdk': 'commonjs2 agora-electron-sdk'
     }
   },
   chainWebpack: config => {

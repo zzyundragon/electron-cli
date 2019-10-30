@@ -15,9 +15,14 @@
             <img :src="Banner" class="wd-per-100" alt />
           </coll>
           <coll span="24" class="flex flex-wrap items-center">
-            <img :src="list" class='wd-per-49 flex-none'
-            :class="{'self-start': index <= 1}"
-             v-for="(list,index) in columns" :key="index" alt />
+            <img
+              :src="list"
+              class="wd-per-49 flex-none"
+              :class="{'self-start': index <= 1}"
+              v-for="(list,index) in columns"
+              :key="index"
+              alt
+            />
           </coll>
         </coll>
         <coll span="10" class="hgh-per-100">col-12</coll>
@@ -38,6 +43,7 @@ import Astronaut from '@/assets/images/homePage/astronaut.png'
 import Banner from '@/assets/images/homePage/banner.png'
 import Setting from '@/assets/images/homePage/setting.png'
 import { getPodiumList, loginFunc } from '@/service/index'
+// import AgoraRtcEngine from 'agora-electron-sdk'
 
 export default {
   name: 'HomePage',
@@ -60,6 +66,8 @@ export default {
     ...mapState(['title'])
   },
   async created() {
+    // this.rtcEngine = new AgoraRtcEngine()
+    // console.log('rtc =', this.rtcEngine)
     try {
       let res = await loginFunc({
         userName: 'superAdmin',
