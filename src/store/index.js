@@ -6,8 +6,8 @@ import actions from './action'
 import getters from './getters'
 
 Vue.use(Vuex)
-
 const state = {
+  lang: localStorage.getItem('lang') || 'en',
   title: '',
   userInfo: {}
 }

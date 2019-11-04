@@ -1,4 +1,4 @@
-const HomePage = () => import(/* webpackChunkName:"home" */'@/views/HomePage.vue')
+const HomePage = () => import(/* webpackChunkName:"home" */'@/views/HomePage/index.vue')
 const About = () => import(/* webpackChunkName:"about" */'@/views/About.vue')
 // const Agora = () => import(/* webpackChunkName:"Agora" */'@/views/Agora.vue')
 

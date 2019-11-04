@@ -4,6 +4,8 @@
     <div class="header">
       <div class="user">
         <Button type="info"></Button>
+        <Button type="primary" @click='setLang("zh")'>{{ $t('common.lang_zh') }}</Button>
+        <Button type="primary" @click='setLang("en")'>{{ $t('common.lang_en') }}</Button>
       </div>
       <div class="menu"></div>
     </div>
@@ -29,9 +31,6 @@
       </row>
       <div class="banner"></div>
     </div>
-    <div class="tab">
-      <div></div>
-    </div>
     <!-- others -->
     <img :src="Astronaut" class="wd-per-16 fixed right-0 bottom-0" alt />
     <img :src="Setting" class="fixed setting wd-per-4" alt />
@@ -54,7 +53,6 @@ export default {
     return {
       userInfo: {},
       data: {},
-      menuList: [],
       Banner: Banner,
       columns: Array.from({ length: 4 }, (v, k) => require('./images/column/' + (k + 1) + '.png')),
       Astronaut: Astronaut,
@@ -67,11 +65,12 @@ export default {
     coll: Col
   },
   computed: {
-    ...mapState(['title'])
+    ...mapState(['title', 'lang'])
   },
   async created() {
     // this.rtcEngine = new AgoraRtcEngine()
     // console.log('rtc =', this.rtcEngine)
+    document.title = this.$t('common.title')
     try {
       let res = await loginFunc({
         userName: 'superAdmin',
@@ -85,7 +84,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getUserInfo', 'insertUserInfo'])
+    ...mapActions(['getUserInfo', 'insertUserInfo', 'changeLang']),
+    setLang(lang) {
+      localStorage.setItem('lang', lang)
+      this.changeLang(lang)
+      window.location.reload()
+    }
   }
 }
 </script>

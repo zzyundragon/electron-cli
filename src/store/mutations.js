@@ -1,4 +1,4 @@
-import { changeTitle, insertUserInfo } from './mutation-types'
+import { changeTitle, insertUserInfo, changeLang } from './mutation-types'
 
 export default {
   [changeTitle](state, title) {
@@ -6,5 +6,8 @@ export default {
   },
   [insertUserInfo](state, userInfo) {
     state.userInfo = sessionStorage.getItem('userInfo')
+  },
+  [changeLang](state, lang) {
+    state.lang = localStorage.getItem('lang')
   }
 }

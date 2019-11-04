@@ -4,6 +4,8 @@ import {
   app,
   protocol,
   BrowserWindow,
+  screen,
+  ipcMain,
   systemPreferences
 } from 'electron'
 import {
@@ -33,17 +35,25 @@ protocol.registerSchemesAsPrivileged([{
 // )
 function createWindow() {
   // Create the browser window.
+  const displayWorkAreaSize = screen.getAllDisplays()[0].workArea // workArea
+  let displays = screen.getAllDisplays()
+  console.log('display -', displays)
   win = new BrowserWindow({
-    width: 1360,
-    height: 768,
-    minWidth: 800,
-    minHeight: 600,
+    x: displayWorkAreaSize.x,
+    y: displayWorkAreaSize.y,
+    width: displayWorkAreaSize.width,
+    height: displayWorkAreaSize.height,
+    resizable: false,
+    frame: false,
     webPreferences: {
       webSecurity: false,
       nodeIntegration: true
     }
   })
-
+  ipcMain.on('min', e => win.minimize())
+  ipcMain.on('closed', e => {
+    app.quit()
+  })
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     console.log('WEBPACK_DEV_SERVER_URL =', process.env.WEBPACK_DEV_SERVER_URL, process.env.IS_TEST)
@@ -54,10 +64,6 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
-
-  win.on('closed', () => {
-    win = null
-  })
 }
 
 // Quit when all windows are closed.
